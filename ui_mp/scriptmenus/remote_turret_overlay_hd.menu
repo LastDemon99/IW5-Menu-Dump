@@ -1,0 +1,72 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "remote_turret_overlay_hd"
+		rect 0 0 640 480 0 0
+		visible 1
+		forecolor 1 1 1 1
+		itemDef
+		{
+			rect -427 -240 854 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "remote_turret_overlay_mp"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.5
+			background "javelin_overlay_grain"
+			textscale 0.55
+			exp forecolor g ( getplayerdata( "remoteTurretDamageFade" ) )
+			exp forecolor b ( getplayerdata( "remoteTurretDamageFade" ) )
+			visible when ( getplayerdata( "remoteTurretDamageFade" ) < 1 && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "javelin_overlay_tearing"
+			textscale 0.55
+			exp forecolor a ( ( ( cos( localclientuimilliseconds( ) ) + 1 ) * 0.5 ) * ( 1 - 0.1 ) + 0.1 )
+			visible when ( getplayerdata( "remoteTurretDamageFade" ) < 1 && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "javelin_overlay_tearing"
+			textscale 0.55
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( ( ( cos( localclientuimilliseconds( ) ) + 1 ) * 0.5 ) * ( 1 - 0.1 ) + 0.1 )
+			visible when ( getplayerdata( "remoteTurretDamageState" ) >= 7 && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.65
+			background "nightvision_overlay_goggles"
+			textscale 0.55
+		}
+	}
+}

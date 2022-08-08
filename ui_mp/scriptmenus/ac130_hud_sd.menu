@@ -1,0 +1,217 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "ac130_hud_sd"
+		rect 0 0 640 480 0 0
+		visible 1
+		forecolor 1 1 1 1
+		itemDef
+		{
+			rect -225 -140 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.35
+			text "@AC130_HUD_WEAPON_105MM"
+			exp forecolor a ( 1 - ( ( weaponname( ) == "ac130_105mm_mp" ) * ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) )
+		}
+		itemDef
+		{
+			rect -225 -120 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.35
+			text "@AC130_HUD_WEAPON_40MM"
+			exp forecolor a ( 1 - ( ( weaponname( ) == "ac130_40mm_mp" ) * ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) )
+		}
+		itemDef
+		{
+			rect -225 -100 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.35
+			text "@AC130_HUD_WEAPON_25MM"
+			exp forecolor a ( 1 - ( ( weaponname( ) == "ac130_25mm_mp" ) * ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) )
+		}
+		itemDef
+		{
+			rect -320 -240 640 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "ac130_overlay_105mm"
+			textscale 0.55
+			exp forecolor a ( 1 - ( ( ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) * isreloading( ) ) )
+			visible when ( ( weaponname( ) == "ac130_105mm_mp" ) )
+		}
+		itemDef
+		{
+			rect -320 -240 640 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "ac130_overlay_40mm"
+			textscale 0.55
+			exp forecolor a ( 1 - ( ( ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) * isreloading( ) ) )
+			visible when ( ( weaponname( ) == "ac130_40mm_mp" ) )
+		}
+		itemDef
+		{
+			rect -320 -240 640 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "ac130_overlay_25mm"
+			textscale 0.55
+			exp forecolor a ( 1 - ( ( ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) * isreloading( ) ) )
+			visible when ( ( weaponname( ) == "ac130_25mm_mp" ) )
+		}
+		itemDef
+		{
+			rect -100 0 0 0 10 10
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 14
+			textscale 0.35
+			visible when ( ( max( 0 , ( localvarint( "ui_ac130timer" ) - milliseconds( ) ) / 1000 ) ) > 0 )
+			exp text ( secondsascountdown( ( max( 0 , ( localvarint( "ui_ac130timer" ) - milliseconds( ) ) / 1000 ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 75 0 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 9
+			textscale 0.35
+			text "@AC130_RELOADING"
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( isreloading( ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 180 105 0 20 9 9
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont 3
+			textalign 4
+			textscale 0.375
+			text "@PLATFORM_UI_AC130_TOGGLE_FLIR"
+			visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) && ( !isdemoplaying( ) ) )
+		}
+		itemDef
+		{
+			rect 180 130 0 20 9 9
+			decoration
+			visible 1
+			forecolor 1 1 1 0.65
+			textfont 3
+			textalign 4
+			textscale 0.375
+			text "@PLATFORM_UI_AC130_CHANGE_WEAPON"
+			visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) && ( !isdemoplaying( ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 0.9 1 1 0.3
+			background "ac130_overlay_grain"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect -180 -140 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.32
+			exp forecolor a ( 1 - ( ( weaponname( ) == "ac130_105mm_mp" ) * ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) )
+			visible when ( getplayerdata( "ac130Ammo105mm" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ac130Ammo105mm" ) + ":1" )
+		}
+		itemDef
+		{
+			rect -180 -140 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.35
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ac130Ammo105mm" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ac130Ammo105mm" ) + ":1" )
+		}
+		itemDef
+		{
+			rect -180 -120 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.32
+			exp forecolor a ( 1 - ( ( weaponname( ) == "ac130_40mm_mp" ) * ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) )
+			visible when ( getplayerdata( "ac130Ammo40mm" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ac130Ammo40mm" ) + ":4" )
+		}
+		itemDef
+		{
+			rect -180 -120 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.35
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ac130Ammo40mm" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ac130Ammo40mm" ) + ":4" )
+		}
+		itemDef
+		{
+			rect -180 -100 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.32
+			exp forecolor a ( 1 - ( ( weaponname( ) == "ac130_25mm_mp" ) * ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) ) )
+			visible when ( getplayerdata( "ac130Ammo25mm" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ac130Ammo25mm" ) + ":20" )
+		}
+		itemDef
+		{
+			rect -180 -100 100 30 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 6
+			textscale 0.35
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ac130Ammo25mm" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ac130Ammo25mm" ) + ":20" )
+		}
+	}
+}

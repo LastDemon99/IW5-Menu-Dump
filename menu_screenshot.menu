@@ -1,0 +1,100 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "menu_screenshot"
+		rect 0 0 640 480 4 4
+		forecolor 1 1 1 1
+		onEsc
+		{
+			execnow "abortScreenshotDownload";
+			close self;
+		}
+		itemDef
+		{
+			rect -1280 -480 2560 960 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.8
+			background "white"
+			textscale 0.55
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			name "frame"
+			rect -300 -180 600 360 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 0.3098 0.349 0.2745 1
+			background "white"
+			textscale 0.55
+			exp rect h ( 360 + 20 )
+		}
+		itemDef
+		{
+			name "frame"
+			rect -290 -170 580 340 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 0.2118 0.2314 0.22 1
+			background "white"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect -40 -40 80 80 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 1
+			textalign 9
+			textscale 0.375
+			visible when ( isContentServerTaskInProgress( "readfile" ) )
+			exp text ( locstring( "@MENU_ONLINEVAULT_DOWNLOADING_PERCENT" , getContentServerTaskProgress( "download" ) ) )
+		}
+		itemDef
+		{
+			name "screenshot"
+			rect -290 -170 580 340 2 2
+			decoration
+			visible 1
+			ownerdraw 379
+			forecolor 1 1 1 1
+			type 8
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect -175 377 80 21.333 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 10
+			textscale 0.375
+			text "@MENU_BACK"
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect -89 377 33.333 21.333 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.30625
+			text "@PLATFORM_BACK_BUTTON"
+			visible when ( 1 )
+		}
+	}
+}

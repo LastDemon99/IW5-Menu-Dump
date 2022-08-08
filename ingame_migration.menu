@@ -1,0 +1,293 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "ingame_migration"
+		rect 0 0 640 480 0 0
+		forecolor 1 1 1 1
+		focuscolor 1 1 1 1
+		blurWorld 4.8
+		onOpen
+		{
+			setdvar "ui_SaveLoadVisible" 0;
+			setLocalVarInt "migration_time_start" ( milliseconds( ) );
+			setLocalVarBool "ishost" ( 0 );
+			focusfirst;
+		}
+		onClose
+		{
+		}
+		onEsc
+		{
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.4
+			background "white"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0
+			background "mockup_bg_glow"
+			textscale 0.55
+			exp forecolor a ( ( ( sin( milliseconds( ) / 1500 ) + 1 ) * 0.25 ) + 0.25 )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0
+			background "mockup_bg_glow"
+			textscale 0.55
+			exp forecolor a ( ( ( sin( milliseconds( ) / 480 ) + 1 ) * 0.25 ) + 0.25 )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 7 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 5
+			textscale 0.5
+			visible when ( !dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_HOST_MIGRATION" ) )
+		}
+		itemDef
+		{
+			rect -320 -168.5 640 0 7 2
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 5
+			textscale 0.75
+			visible when ( dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_HOST_MIGRATION" ) )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.25 && !localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + "   " )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.25 && !localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + "   " )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.25 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.5 && !localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + ".  " )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.25 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.5 && !localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + ".  " )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.5 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.75 && !localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + ".. " )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.5 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.75 && !localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + ".. " )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.75 && !localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.75 && !localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( getmigrationstatus( ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.25 && localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.25 && localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.25 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.5 && localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.25 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.5 && localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.5 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.75 && localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.5 && ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 <= 0.75 && localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.375
+			exp rect y ( getTextHeight( 9 , 0.5 ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.75 && localvarbool( "ishost" ) ) && !dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+		itemDef
+		{
+			rect -320 0 640 0 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 5
+			textscale 0.5625
+			exp rect y ( ( 0 - ( 337 / 2 ) ) + getTextHeight( 9 , ( 0.5 * 1.5 ) ) )
+			visible when ( ( ( sin( milliseconds( ) * 0.005 ) + 1 ) * 0.5 > 0.75 && localvarbool( "ishost" ) ) && dvarbool( "splitscreen" ) )
+			exp text ( locstring( "@MENU_UPLOADING_STATS" ) + "..." )
+		}
+	}
+}

@@ -1,0 +1,591 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "load_recipe"
+		rect 0 0 640 480 0 0
+		style 1
+		forecolor 1 1 1 1
+		focuscolor 1 1 1 1
+		onOpen
+		{
+			setfocusbydvar "ui_recipeName";
+			setLocalVarInt "ui_buttonNavGroupOffset" ( 0 );
+			setLocalVarInt "ui_buttonNavGroupCurrent" ( 0 );
+			setLocalVarString "ui_buttonNavGroupName" ( "invalid" );
+			setLocalVarBool "ui_swfSelectionButtonVis" ( 0 );
+			setLocalVarBool "ui_swfSelectionBarVis" ( 0 );
+			setLocalVarBool "ui_swfSelectionDisabled" ( 0 );
+			setLocalVarBool "ui_swfPopupSelectionButtonVis" ( 0 );
+			setLocalVarBool "ui_swfPopupSelectionBarVis" ( 0 );
+			setLocalVarBool "ui_swfPopupSelectionDisabled" ( 0 );
+			setLocalVarString "ui_swfPopupContext" ( "invalid" );
+			focusfirst;
+		}
+		onEsc
+		{
+			close self;
+		}
+		itemDef
+		{
+			rect -426.667 -240 853.333 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "background_image_blur_less"
+			textscale 0.55
+			visible when ( ( dvarbool( "ui_multiplayer" ) || ( dvarstring( "gameMode" ) == "so" && !menuistopmost( "main_specops" ) ) ) )
+		}
+		itemDef
+		{
+			rect -426.667 -240 853.333 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "background_image"
+			textscale 0.55
+			visible when ( !( dvarbool( "ui_multiplayer" ) || ( dvarstring( "gameMode" ) == "so" && !menuistopmost( "main_specops" ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 1708 480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay"
+			textscale 0.55
+			exp rect x ( ( 0 - 107 ) - ( ( float( milliseconds( ) % 60000 ) / 60000 ) * ( 854 ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 -1708 -480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay"
+			textscale 0.55
+			exp rect x ( ( - 107 + 854 ) + ( ( float( milliseconds( ) % 50000 ) / 50000 ) * ( 854 ) ) )
+		}
+		itemDef
+		{
+			rect 240 372 540 16 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "motd_ticker_bg"
+			textscale 0.55
+			visible when ( 0 )
+		}
+		itemDef
+		{
+			rect 250 372 500 16 1 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			type 20
+			textscale 0.34
+			newsfeed 1
+			speed 50
+			visible when ( 0 )
+		}
+		itemDef
+		{
+			rect 237.5 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.4
+			background "white"
+			textscale 0.55
+			exp rect w ( localvarbool( "ui_shelfEnabled" ) * select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 219.5 , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 237.5 -236 13 680 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.75
+			background "navbar_edge"
+			textscale 0.55
+			exp rect x ( ( ( 0 - 64 ) + 301.5 ) + ( localvarbool( "ui_shelfEnabled" ) * ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 219.5 , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) ) ) ) )
+			exp forecolor r ( 0.596078 )
+			exp forecolor g ( 0.654902 )
+			exp forecolor b ( 0.603922 )
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect 237.5 -236 13 680 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.75
+			background "navbar_edge"
+			textscale 0.55
+			exp rect x ( ( 0 - 64 ) + 301.5 )
+			exp forecolor r ( 0.596078 )
+			exp forecolor g ( 0.654902 )
+			exp forecolor b ( 0.603922 )
+			exp forecolor a ( localvarbool( "ui_shelfEnabled" ) * ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 0.75 ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0.75 , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 0.75 ) ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -64 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "dest_alpha_one"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 237.5 -36 640 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "dest_alpha_zero"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -426.667 -240 853.333 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "background_image_blur_less_dest_alpha_masked"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 1708 480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "mw2_main_cloud_overlay_write_dest_alpha"
+			textscale 0.55
+			exp rect x ( ( 0 - 107 ) - ( ( float( milliseconds( ) % 60000 ) / 60000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 1708 480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay_dest_alpha_masked"
+			textscale 0.55
+			exp rect x ( ( 0 - 107 ) - ( ( float( milliseconds( ) % 60000 ) / 60000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -64 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "dest_alpha_one"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 -1708 -480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "mw2_main_cloud_overlay_write_dest_alpha"
+			textscale 0.55
+			exp rect x ( ( - 107 + 854 ) + ( ( float( milliseconds( ) % 50000 ) / 50000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 -1708 -480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay_dest_alpha_masked"
+			textscale 0.55
+			exp rect x ( ( - 107 + 854 ) + ( ( float( milliseconds( ) % 50000 ) / 50000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -64 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.4
+			background "white"
+			textscale 0.55
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect -64 30 301.5 5.333 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_tick"
+			textscale 0.55
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect -64 3 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 14
+			textscale 0.5
+			exp forecolor a ( select( ( getTextWidth( locstring( "@MENU_LOAD_RECIPE_CAPS" ) , 9 , 0.5 ) <= 200 ) , 1 , 0 ) )
+			visible when ( 1 )
+			exp text ( locstring( "@MENU_LOAD_RECIPE_CAPS" ) )
+		}
+		itemDef
+		{
+			rect -64 3 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 14
+			textscale 0.4
+			exp forecolor a ( select( ( ( getTextWidth( locstring( "@MENU_LOAD_RECIPE_CAPS" ) , 9 , 0.5 ) > 200 ) && ( getTextWidth( locstring( "@MENU_LOAD_RECIPE_CAPS" ) , 9 , 0.4 ) <= 200 ) ) , 1 , 0 ) )
+			visible when ( 1 )
+			exp text ( locstring( "@MENU_LOAD_RECIPE_CAPS" ) )
+		}
+		itemDef
+		{
+			rect -64 1 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 14
+			textscale 0.3
+			exp forecolor a ( select( ( getTextWidth( locstring( "@MENU_LOAD_RECIPE_CAPS" ) , 9 , 0.4 ) > 200 ) , 1 , 0 ) )
+			visible when ( 1 )
+			exp text ( locstring( "@MENU_LOAD_RECIPE_CAPS" ) )
+		}
+		itemDef
+		{
+			rect -63.933 3 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 10
+			textscale 0.4
+			visible when ( ( ( "USE_SMALLER_TITLE_TEXT" ) ) )
+			exp text ( "@MENU_LOAD_RECIPE_CAPS" )
+		}
+		itemDef
+		{
+			rect -68 52 305.333 8.666 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar_shadow"
+			textscale 0.55
+			exp rect y ( ( ( getFeederData( "recipe_selection" , "selection" ) - getFeederData( "recipe_selection" , "start" ) ) * 20 ) + ( 34.667 ) + 0.667 + 17.333 )
+			visible when ( localvarbool( "ui_recipieSelectionVisible" ) )
+		}
+		itemDef
+		{
+			rect -68 34.667 305.333 17.333 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar"
+			textscale 0.55
+			exp rect y ( ( ( getFeederData( "recipe_selection" , "selection" ) - getFeederData( "recipe_selection" , "start" ) ) * 20 ) + ( 34.667 ) + 0.667 )
+			visible when ( localvarbool( "ui_recipieSelectionVisible" ) )
+		}
+		itemDef
+		{
+			name "recipe_selection"
+			rect -37 30.8337 276.667 385 1 1
+			visible 1
+			forecolor 1 1 1 1
+			disablecolor 0.6 0.55 0.55 1
+			type 6
+			textalignx -27
+			textscale 0.375
+			feeder 42
+			elementWidth 20
+			elementHeight 20
+//			numcol			xpos	xwidth	textlen	  alignment
+			columns 1		0		276		64		  2
+			doubleClick
+			{
+				play "mouse_click";
+				loadMatchRulesDedicatedServer;
+			}
+			mouseEnter
+			{
+				play "mouse_over";
+			}
+			onFocus
+			{
+				setLocalVarBool "ui_recipieSelectionVisible" ( 1 );
+				play "mouse_over";
+			}
+			leaveFocus
+			{
+				setLocalVarBool "ui_recipieSelectionVisible" ( 0 );
+			}
+		}
+		itemDef
+		{
+			rect -252.667 2.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( !inlobby( ) ) )
+			exp text ( truncateTextWithEllipsis( ( dvarstring( "party_partyPlayerCount" ) ) , 3 , 0.375 , 225 ) )
+		}
+		itemDef
+		{
+			rect -252.667 2.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( inlobby( ) && !dvarbool( "xblive_privatematch" ) ) )
+			exp text ( truncateTextWithEllipsis( ( getpartystatus( ) ) , 3 , 0.375 , 225 ) )
+		}
+		itemDef
+		{
+			rect -252.667 2.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( inlobby( ) && dvarbool( "xblive_privatematch" ) ) )
+			exp text ( truncateTextWithEllipsis( ( getprivatepartystatus( ) ) , 3 , 0.375 , 225 ) )
+		}
+		itemDef
+		{
+			rect -252.667 14.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( inlobby( ) && !dvarbool( "xblive_privatematch" ) && !( dvarbool( "party_teamsVisible" ) && dvarbool( "party_teamBased" ) ) ) )
+			exp text ( getsearchparams( ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - 20 - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) )
+			action
+			{
+				play "mouse_click";
+				"uiscript" "simulateKeyPress" "102" ;;
+			}
+			onFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( 2 );
+				setLocalVarString "ui_ralign_group" ( "load_recipe" );
+				play "mouse_over";
+			}
+			leaveFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( - 1 ) );
+				setLocalVarString "ui_ralign_group" ( "" );
+			}
+		}
+		itemDef
+		{
+			rect 0 0 0 8.666 3 3
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar_shadow"
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) + 20 )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) ) && ( ! 0 ) && ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 0.6 0.6314 0.6 1
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) ) && ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 / 2 ) - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) )
+			exp forecolor r ( select( ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor g ( select( ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor b ( select( ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			visible when ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) )
+			exp text ( "@PLATFORM_FRIENDS_SHORTCUT" )
+			execKeyInt 102
+			{
+				if ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) )
+				{
+					setLocalVarBool "ui_vault_browse" ( 0 );
+					setLocalVarBool "ui_vault_load" ( 0 );
+					execnow "incnosplitscreencontrol popup_friends";
+					if ( isprofilesignedin( ) && isusersignedintolive( ) )
+					{
+						open "popup_friends";
+					}
+					else
+					{
+						execnow "decnosplitscreencontrol popup_friends";
+					}
+				}
+			}
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - 20 - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( 1 )
+			action
+			{
+				play "mouse_click";
+				"uiscript" "simulateKeyPress" "27" ;;
+			}
+			onFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( 1 );
+				setLocalVarString "ui_ralign_group" ( "load_recipe" );
+				play "mouse_over";
+			}
+			leaveFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( - 1 ) );
+				setLocalVarString "ui_ralign_group" ( "" );
+			}
+		}
+		itemDef
+		{
+			rect 0 0 0 8.666 3 3
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar_shadow"
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) + 20 )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( 1 ) && ( ! 0 ) && ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 0.6 0.6314 0.6 1
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( 1 ) && ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 / 2 ) - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp forecolor r ( select( ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor g ( select( ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor b ( select( ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "load_recipe" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			visible when ( 1 )
+			exp text ( "@PLATFORM_BACK_SHORTCUT" )
+		}
+	}
+}

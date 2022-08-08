@@ -1,0 +1,102 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "promotion"
+		rect 0 0 640 480 1 1
+		decoration
+		forecolor 1 1 1 1
+		exp rect y ( ( ( dvarbool( "camera_thirdPerson" ) ) || ( ! ( inkillcam( ) ) ) ) * ( 0 - 40 ) * ( ! ( dvarbool( "splitscreen" ) ) ) )
+		onOpen
+		{
+			lerp "alpha" "from" 0 "to" 1 "over" "0.15";
+			lerp x "from" "640" "to" "370" "over" "0.15";
+			forceClose "splash";
+			forceClose "challenge";
+			forceClose "defcon";
+			forceClose "killstreak_pickup";
+			forceClose "killstreak";
+			forceClose "perk_challenge";
+			forceClose "promotion_weapon";
+			forceClose "killstreak_minisplash";
+			forceClose "daily_challenge";
+			forceClose "weekly_challenge";
+		}
+		onRequestClose
+		{
+			lerp "alpha" "from" 1 "to" 0 "over" "0.15";
+			lerp x "from" "370" "to" "640" "over" "0.15";
+		}
+		itemDef
+		{
+			name "promotion_text"
+			rect -580 60 200 20 10 8
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 4
+			textalign 2
+			textscale 0.2916
+			glowColor 0.25 0.75 0.25 1
+			decodeEffect 1
+			text "@RANK_PROMOTED"
+			visible when ( ( ! ( dvarbool( "splitscreen" ) ) ) )
+		}
+		itemDef
+		{
+			name "promotion_rank_text"
+			rect -580 80 200 20 10 8
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 2
+			textscale 0.375
+			glowColor 0.25 0.75 0.25 1
+			decodeEffect 1
+			visible when ( ( ! ( dvarbool( "splitscreen" ) ) ) )
+			exp text ( "@" + tablelookup( "mp/ranktable.csv" , 0 , levelforexperiencemp( getplayerdata( "experience" ) ) , 5 ) )
+		}
+		itemDef
+		{
+			name "promotion_rank_icon"
+			rect -430 80 48 48 10 8
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			visible when ( ( ! ( dvarbool( "splitscreen" ) ) ) )
+			exp material ( tablelookup( "mp/rankIconTable.csv" , 0 , levelforexperiencemp( getplayerdata( "experience" ) ) , getplayerdata( "prestige" ) + 1 ) )
+		}
+		itemDef
+		{
+			name "promotion_rank_text_ss"
+			rect -580 60 200 20 10 8
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 4
+			textalign 2
+			textscale 0.729165
+			glowColor 0.25 0.75 0.25 1
+			decodeEffect 1
+			visible when ( ( dvarbool( "splitscreen" ) ) )
+			exp text ( "@" + tablelookup( "mp/ranktable.csv" , 0 , levelforexperiencemp( getplayerdata( "experience" ) ) , 5 ) )
+		}
+		itemDef
+		{
+			name "promotion_rank_icon_ss"
+			rect -440 70 60 60 10 8
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			visible when ( ( dvarbool( "splitscreen" ) ) && ( ! ( dvarbool( "camera_thirdPerson" ) ) ) )
+			exp material ( tablelookup( "mp/rankIconTable.csv" , 0 , levelforexperiencemp( getplayerdata( "experience" ) ) , getplayerdata( "prestige" ) + 1 ) )
+		}
+	}
+}

@@ -1,0 +1,944 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "popup_findgame"
+		rect 0 0 640 480 0 0
+		forecolor 1 1 1 1
+		focuscolor 1 1 1 1
+		fullscreen 1
+		onOpen
+		{
+			setLocalVarString "ui_buttonNavGroupName" ( "PLAYLIST_BUTTON_LIST" );
+			setLocalVarInt "ui_buttonNavGroupCurrent" ( 0 );
+			setLocalVarBool "ui_swfSelectionBarVis" ( 1 );
+			setLocalVarInt "ui_buttonNavGroupOffset" ( 0 );
+			if ( dvarbool( "widescreen" ) )
+			{
+				setLocalVarFloat "ui_shelfTime" ( milliseconds( ) );
+				setLocalVarBool "ui_shelfTimeInvert" ( 0 );
+				setLocalVarBool "ui_shelfEnabled" ( 1 );
+				setLocalVarInt "ui_shelfCounter" ( localvarint( "ui_shelfCounter" ) + 1 );
+			}
+			else
+			{
+				setLocalVarBool "ui_shelfEnabled" ( 0 );
+				setLocalVarInt "ui_shelfCounter" ( 0 );
+			}
+			setLocalVarInt "ui_buttonNavGroupOffset" ( 0 );
+			setLocalVarInt "ui_buttonNavGroupCurrent" ( 0 );
+			setLocalVarString "ui_buttonNavGroupName" ( "invalid" );
+			setLocalVarBool "ui_swfSelectionButtonVis" ( 0 );
+			setLocalVarBool "ui_swfSelectionBarVis" ( 0 );
+			setLocalVarBool "ui_swfSelectionDisabled" ( 0 );
+			setLocalVarBool "ui_swfPopupSelectionButtonVis" ( 0 );
+			setLocalVarBool "ui_swfPopupSelectionBarVis" ( 0 );
+			setLocalVarBool "ui_swfPopupSelectionDisabled" ( 0 );
+			setLocalVarString "ui_swfPopupContext" ( "invalid" );
+			focusfirst;
+			close "popup_gettingdata";
+		}
+		onClose
+		{
+			if ( dvarbool( "widescreen" ) )
+			{
+				setLocalVarBool "ui_shelfEnabled" ( 0 );
+				setLocalVarInt "ui_shelfCounter" ( 0 );
+			}
+		}
+		onEsc
+		{
+			"uiScript" "Playlist" close;
+		}
+		onFocusDueToClose
+		{
+			setLocalVarString "ui_hint_text" ( "" );
+			focusfirst;
+		}
+		itemDef
+		{
+			rect -426.667 -240 853.333 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "background_image_blur_less"
+			textscale 0.55
+			visible when ( ( dvarbool( "ui_multiplayer" ) || ( dvarstring( "gameMode" ) == "so" && !menuistopmost( "main_specops" ) ) ) )
+		}
+		itemDef
+		{
+			rect -426.667 -240 853.333 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "background_image"
+			textscale 0.55
+			visible when ( !( dvarbool( "ui_multiplayer" ) || ( dvarstring( "gameMode" ) == "so" && !menuistopmost( "main_specops" ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 1708 480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay"
+			textscale 0.55
+			exp rect x ( ( 0 - 107 ) - ( ( float( milliseconds( ) % 60000 ) / 60000 ) * ( 854 ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 -1708 -480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay"
+			textscale 0.55
+			exp rect x ( ( - 107 + 854 ) + ( ( float( milliseconds( ) % 50000 ) / 50000 ) * ( 854 ) ) )
+		}
+		itemDef
+		{
+			rect 237.5 -39.333 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.4
+			background "white"
+			textscale 0.55
+			exp rect w ( localvarbool( "ui_shelfEnabled" ) * select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 219.5 , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 237.5 -239.333 13 680 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.75
+			background "navbar_edge"
+			textscale 0.55
+			exp rect x ( ( ( 0 - 64 ) + 301.5 ) + ( localvarbool( "ui_shelfEnabled" ) * ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 219.5 , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 219.5 ) ) ) ) )
+			exp forecolor r ( 0.596078 )
+			exp forecolor g ( 0.654902 )
+			exp forecolor b ( 0.603922 )
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect 237.5 -239.333 13 680 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.75
+			background "navbar_edge"
+			textscale 0.55
+			exp rect x ( ( 0 - 64 ) + 301.5 )
+			exp forecolor r ( 0.596078 )
+			exp forecolor g ( 0.654902 )
+			exp forecolor b ( 0.603922 )
+			exp forecolor a ( localvarbool( "ui_shelfEnabled" ) * ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 0.75 ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0.75 , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * 0.75 ) ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 251 34.667 200 20 1 1
+			decoration
+			autowrapped
+			visible 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 13
+			textscale 0.4
+			dvar "playlist_name"
+			exp rect x ( select( dvarbool( "widescreen" ) , ( ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) + ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , ( 0 - 242 ) , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) ) ) ) , ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) ) )
+		}
+		itemDef
+		{
+			rect 251 204.667 200 20 1 1
+			decoration
+			autowrapped
+			visible 1
+			ownerdraw 375
+			forecolor 1 1 1 1
+			type 8
+			textfont 3
+			textalign 9
+			textscale 0.340278
+			exp rect x ( select( dvarbool( "widescreen" ) , ( ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) + ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , ( 0 - 242 ) , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) ) ) ) , ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) ) )
+		}
+		itemDef
+		{
+			rect 251 44.667 140 140 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( select( dvarbool( "widescreen" ) , ( ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) + ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , ( 0 - 242 ) , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) ) ) ) , ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) ) + 32 )
+			visible when ( dvarstring( "playlist_image" ) != "" )
+			exp material ( dvarstring( "playlist_image" ) )
+		}
+		itemDef
+		{
+			rect 251 372.667 200 20 1 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 9
+			textscale 0.340278
+			dvar "playlist_population"
+			exp rect x ( select( dvarbool( "widescreen" ) , ( ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) + ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , ( 0 - 242 ) , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) ) ) ) , ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) ) )
+			visible when ( dvarbool( "widescreen" ) )
+		}
+		itemDef
+		{
+			rect 251 388.667 200 20 1 1
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 9
+			textscale 0.340278
+			dvar "playlist_totalonline"
+			exp rect x ( select( dvarbool( "widescreen" ) , ( ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) + ( select( localvarbool( "ui_shelfTimeInvert" ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , ( 0 - 242 ) , ( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) , select( ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) > 100 , 0 , ( 1 - ( milliseconds( ) - localvarfloat( "ui_shelfTime" ) ) / 100 ) * ( 0 - 242 ) ) ) ) ) , ( 219.5 + ( 0 - 64 ) + 78 + 17.5 ) ) )
+			visible when ( dvarbool( "widescreen" ) )
+		}
+		itemDef
+		{
+			rect -64 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "dest_alpha_one"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 237.5 -36 640 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "dest_alpha_zero"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -426.667 -240 853.333 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "background_image_blur_less_dest_alpha_masked"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 1708 480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "mw2_main_cloud_overlay_write_dest_alpha"
+			textscale 0.55
+			exp rect x ( ( 0 - 107 ) - ( ( float( milliseconds( ) % 60000 ) / 60000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 1708 480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay_dest_alpha_masked"
+			textscale 0.55
+			exp rect x ( ( 0 - 107 ) - ( ( float( milliseconds( ) % 60000 ) / 60000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -64 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "dest_alpha_one"
+			textscale 0.55
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 -1708 -480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "mw2_main_cloud_overlay_write_dest_alpha"
+			textscale 0.55
+			exp rect x ( ( - 107 + 854 ) + ( ( float( milliseconds( ) % 50000 ) / 50000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect 0 0 -1708 -480 0 0
+			decoration
+			visible 1
+			style 3
+			forecolor 0.35 0.35 0.35 1
+			background "mw2_main_cloud_overlay_dest_alpha_masked"
+			textscale 0.55
+			exp rect x ( ( - 107 + 854 ) + ( ( float( milliseconds( ) % 50000 ) / 50000 ) * ( 854 ) ) )
+			visible when ( localvarbool( "ui_shelfEnabled" ) )
+		}
+		itemDef
+		{
+			rect -64 -36 301.5 480 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 0.4
+			background "white"
+			textscale 0.55
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect -64 30 301.5 5.333 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_tick"
+			textscale 0.55
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect -64 3 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 14
+			textscale 0.5
+			exp forecolor a ( select( ( getTextWidth( locstring( "@PLATFORM_FIND_GAME_CAPS" ) , 9 , 0.5 ) <= 200 ) , 1 , 0 ) )
+			visible when ( ( ! 0 ) )
+			exp text ( locstring( "@PLATFORM_FIND_GAME_CAPS" ) )
+		}
+		itemDef
+		{
+			rect -64 3 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 14
+			textscale 0.4
+			exp forecolor a ( select( ( ( getTextWidth( locstring( "@PLATFORM_FIND_GAME_CAPS" ) , 9 , 0.5 ) > 200 ) && ( getTextWidth( locstring( "@PLATFORM_FIND_GAME_CAPS" ) , 9 , 0.4 ) <= 200 ) ) , 1 , 0 ) )
+			visible when ( ( ! 0 ) )
+			exp text ( locstring( "@PLATFORM_FIND_GAME_CAPS" ) )
+		}
+		itemDef
+		{
+			rect -64 1 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 14
+			textscale 0.3
+			exp forecolor a ( select( ( getTextWidth( locstring( "@PLATFORM_FIND_GAME_CAPS" ) , 9 , 0.4 ) > 200 ) , 1 , 0 ) )
+			visible when ( ( ! 0 ) )
+			exp text ( locstring( "@PLATFORM_FIND_GAME_CAPS" ) )
+		}
+		itemDef
+		{
+			rect -63.933 3 276.667 24.233 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 10
+			textscale 0.4
+			visible when ( ( ( 0 ) ) )
+			exp text ( "@PLATFORM_FIND_GAME_CAPS" )
+		}
+		itemDef
+		{
+			rect -68 52 305.333 8.666 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar_shadow"
+			textscale 0.55
+			exp rect y ( ( ( getFeederData( "playlist_listing" , "selection" ) - localvarint( "ui_buttonNavGroupOffset" ) ) * 20 ) + ( 34.667 ) + 0.667 + 17.333 )
+			visible when ( localvarbool( "ui_swfSelectionButtonVis" ) && ( localvarstring( "ui_buttonNavGroupName" ) == "PLAYLIST_BUTTON_LIST" ) )
+		}
+		itemDef
+		{
+			rect -68 34.667 305.333 17.333 1 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar"
+			textscale 0.55
+			exp rect y ( ( ( getFeederData( "playlist_listing" , "selection" ) - localvarint( "ui_buttonNavGroupOffset" ) ) * 20 ) + ( 34.667 ) + 0.667 )
+			visible when ( localvarbool( "ui_swfSelectionButtonVis" ) && ( localvarstring( "ui_buttonNavGroupName" ) == "PLAYLIST_BUTTON_LIST" ) )
+		}
+		itemDef
+		{
+			rect 213 34.667 21.333 16.5 1 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 10
+			textscale 0.30625
+			exp rect y ( ( ( getFeederData( "playlist_listing" , "selection" ) - localvarint( "ui_buttonNavGroupOffset" ) ) * 20 ) + ( 34.667 ) + 0.667 )
+			visible when ( localvarbool( "ui_swfSelectionButtonVis" ) && ( localvarstring( "ui_buttonNavGroupName" ) == "PLAYLIST_BUTTON_LIST" ) && getFeederData( "playlist_listing" , "enabled" ) )
+			exp text ( "@PLATFORM_NAVBAR_BUTTON_FOCUSED_SELECTBUTTON" )
+		}
+		itemDef
+		{
+			name "playlist_listing"
+			rect -64 30.834 276.667 380 1 1
+			visible 1
+			forecolor 1 1 1 1
+			disablecolor 0.569 0.569 0.569 1
+			type 6
+			textscale 0.375
+			feeder 24
+			elementWidth 20
+			elementHeight 20
+//			numcol			xpos	xwidth	textlen	  alignment
+			columns 1		0		276		64		  2
+			noscrollbars
+			doubleClick
+			{
+				play "mouse_click";
+				if ( iswaitingforonlineservices( ) )
+				{
+					execWithResolve "xopenonlineservicesdialog";
+				}
+				else
+				{
+					"uiScript" "Playlist" "DoAction";
+				}
+			}
+			exp rect y ( 34.667 )
+			exp rect w ( 312.667 )
+			exp rect h ( ( 20 * min( 19 , getFeederData( "playlist_listing" , "count" ) ) ) + 4 )
+			onFocus
+			{
+				setLocalVarString "ui_buttonNavGroupName" ( "PLAYLIST_BUTTON_LIST" );
+				setLocalVarBool "ui_swfSelectionBarVis" ( 1 );
+				setLocalVarBool "ui_swfSelectionButtonVis" ( 1 );
+				play "mouse_over";
+			}
+			leaveFocus
+			{
+				setLocalVarBool "ui_swfSelectionBarVis" ( 0 );
+				setLocalVarBool "ui_swfSelectionButtonVis" ( 0 );
+			}
+		}
+		itemDef
+		{
+			name "playlist_population"
+			rect 40 294.667 183 123 1 1
+			decoration
+			visible 1
+			ownerdraw 381
+			forecolor 1 1 1 1
+			type 8
+			textscale 0.55
+			visible when ( 1 )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - 20 - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) )
+			action
+			{
+				play "mouse_click";
+				"uiscript" "simulateKeyPress" "102" ;;
+			}
+			onFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( 2 );
+				setLocalVarString "ui_ralign_group" ( "popup_findgame" );
+				play "mouse_over";
+			}
+			leaveFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( - 1 ) );
+				setLocalVarString "ui_ralign_group" ( "" );
+			}
+		}
+		itemDef
+		{
+			rect 0 0 0 8.666 3 3
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar_shadow"
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) + 20 )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) ) && ( ! 0 ) && ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 0.6 0.6314 0.6 1
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) ) && ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 / 2 ) - getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) - select( ( 1 ) , ( 20 + getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 5 ) , 0 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_FRIENDS_SHORTCUT" ) , 3 , 0.375 ) )
+			exp forecolor r ( select( ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor g ( select( ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor b ( select( ( localvarint( "ui_ralign_index" ) == 2 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			visible when ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) )
+			exp text ( "@PLATFORM_FRIENDS_SHORTCUT" )
+			execKeyInt 102
+			{
+				if ( ( ( isprofilesignedin( ) || anysplitscreenprofilesaresignedin( ) ) && ( isusersignedintolive( ) || isanyusersignedintolive( ) ) && ( ( dvarbool( "onlinegame" ) && ( dvarbool( "sv_running" ) || dvarbool( "cl_ingame" ) ) ) || ( !dvarbool( "cl_ingame" ) && !dvarbool( "sv_running" ) ) ) ) )
+				{
+					setLocalVarBool "ui_vault_browse" ( 0 );
+					setLocalVarBool "ui_vault_load" ( 0 );
+					execnow "incnosplitscreencontrol popup_friends";
+					if ( isprofilesignedin( ) && isusersignedintolive( ) )
+					{
+						open "popup_friends";
+					}
+					else
+					{
+						execnow "decnosplitscreencontrol popup_friends";
+					}
+				}
+			}
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			visible 1
+			forecolor 1 1 1 1
+			type 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - 20 - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( 1 )
+			action
+			{
+				play "mouse_click";
+				"uiscript" "simulateKeyPress" "27" ;;
+			}
+			onFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( 1 );
+				setLocalVarString "ui_ralign_group" ( "popup_findgame" );
+				play "mouse_over";
+			}
+			leaveFocus
+			{
+				setLocalVarInt "ui_ralign_index" ( - 1 ) );
+				setLocalVarString "ui_ralign_group" ( "" );
+			}
+		}
+		itemDef
+		{
+			rect 0 0 0 8.666 3 3
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "navbar_selection_bar_shadow"
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) + 20 )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( 1 ) && ( ! 0 ) && ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 0.6 0.6314 0.6 1
+			textscale 0.55
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 ) - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) + 20 )
+			visible when ( ( 1 ) && ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) )
+		}
+		itemDef
+		{
+			rect 0 0 0 20 3 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( 0 ) - ( 0 * 5 ) - ( 20 / 2 ) - getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp rect y ( ( ( 0 - 20.667 ) ) )
+			exp rect w ( getTextWidth( locstring( "@PLATFORM_BACK_SHORTCUT" ) , 3 , 0.375 ) )
+			exp forecolor r ( select( ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor g ( select( ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			exp forecolor b ( select( ( localvarint( "ui_ralign_index" ) == 1 && localvarstring( "ui_ralign_group" ) == "popup_findgame" ) , select( isdemoplaying( ) , ( sin( milliseconds( ) / 80 ) * 0.3 + 1 ) , ( sin( localclientuimilliseconds( ) / 80 ) * 0.3 + 1 ) ) , 1 ) )
+			visible when ( 1 )
+			exp text ( "@PLATFORM_BACK_SHORTCUT" )
+		}
+		itemDef
+		{
+			rect -252.667 2.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( !inlobby( ) ) )
+			exp text ( truncateTextWithEllipsis( ( dvarstring( "party_partyPlayerCount" ) ) , 3 , 0.375 , 225 ) )
+		}
+		itemDef
+		{
+			rect -252.667 2.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( inlobby( ) && !dvarbool( "xblive_privatematch" ) ) )
+			exp text ( truncateTextWithEllipsis( ( getpartystatus( ) ) , 3 , 0.375 , 225 ) )
+		}
+		itemDef
+		{
+			rect -252.667 2.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( inlobby( ) && dvarbool( "xblive_privatematch" ) ) )
+			exp text ( truncateTextWithEllipsis( ( getprivatepartystatus( ) ) , 3 , 0.375 , 225 ) )
+		}
+		itemDef
+		{
+			rect -252.667 14.667 253.333 20 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.784314 0.784314 0.784314 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			visible when ( ( inlobby( ) && !dvarbool( "xblive_privatematch" ) && !( dvarbool( "party_teamsVisible" ) && dvarbool( "party_teamBased" ) ) ) )
+			exp text ( getsearchparams( ) )
+		}
+		itemDef
+		{
+			name "partyList"
+			rect -244 31 254 362 3 1
+			visible 1
+			forecolor 1 1 1 1
+			type 6
+			textaligny -2
+			textscale 0.375
+			feeder 23
+			elementWidth 291.333
+			elementHeight 19.5
+//			numcol			xpos	xwidth	textlen	  alignment
+			columns 5		2		20		40		  0
+							20		20		3		  0
+							40		16		38		  0
+							200		20		3		  1
+							220		20		3		  1
+			doubleClick
+			{
+				play "mouse_click";
+				open "player_popup_party";
+			}
+			exp rect h ( min( 362 , ( 19.5 * getFeederData( "partyList" , "count" ) ) + 4 ) )
+			visible when ( dvarbool( "widescreen" ) )
+		}
+		itemDef
+		{
+			rect 0 0 240 40 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 0 0 0 1
+			background "white"
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) )
+		}
+		itemDef
+		{
+			rect 0 0 237.333 37.333 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "playercard_scanlines_512"
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 1.333 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 1.333 )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) )
+		}
+		itemDef
+		{
+			rect 0 0 35.3 35.3 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 2.533 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 2.567 )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && !localvarbool( "browsingCardIcon" ) )
+			exp material ( tablelookupbyrow( "mp/cardIconTable.csv" , getplayercardinfo( 2 , 3 , dvarint( "party_selectedIndex" ) ) , 1 ) )
+		}
+		itemDef
+		{
+			rect 0 0 156.667 31.333 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			backcolor 1 1 1 1
+			textfont 3
+			textalign 9
+			textscale 0.375
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 33.9 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + ( 0 - 4.1 ) )
+			exp forecolor r ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 3 , dvarint( "party_selectedIndex" ) ) , 3 ) )
+			exp forecolor g ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 3 , dvarint( "party_selectedIndex" ) ) , 4 ) )
+			exp forecolor b ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 3 , dvarint( "party_selectedIndex" ) ) , 5 ) )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && !localvarbool( "browsingCardTitle" ) )
+			exp text ( getplayercardinfo( 14 , 3 , dvarint( "party_selectedIndex" ) ) )
+			exp material ( tablelookupbyrow( "mp/cardTitleTable.csv" , getplayercardinfo( 1 , 3 , dvarint( "party_selectedIndex" ) ) , 2 ) )
+		}
+		itemDef
+		{
+			rect 0 0 146.7 16.6 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 40 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 21.5 )
+			exp forecolor r ( 0.941 )
+			exp forecolor g ( 0.773 )
+			exp forecolor b ( 0.361 )
+			exp forecolor a ( select( ( getTextWidth( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) , 9 , 0.375 ) <= 142 ) , ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) , 0 ) )
+			visible when ( ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) )
+			exp text ( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 146.7 16.6 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 8
+			textscale 0.3
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 40 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 21.5 )
+			exp forecolor r ( 0.941 )
+			exp forecolor g ( 0.773 )
+			exp forecolor b ( 0.361 )
+			exp forecolor a ( select( ( getTextWidth( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) , 9 , 0.375 ) > 142 && getTextWidth( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) , 9 , 0.375 ) <= 180 ) , ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) , 0 ) )
+			visible when ( ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) )
+			exp text ( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 146.7 16.6 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 9
+			textalign 8
+			textscale 0.225
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 40 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 22 )
+			exp forecolor r ( 0.941 )
+			exp forecolor g ( 0.773 )
+			exp forecolor b ( 0.361 )
+			exp forecolor a ( select( ( getTextWidth( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) , 9 , 0.375 ) > 180 ) , ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) , 0 ) )
+			visible when ( ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) )
+			exp text ( truncateTextWithEllipsis( getplayercardinfo( 11 , 3 , dvarint( "party_selectedIndex" ) ) , 9 , ( 0.375 * 0.6 ) , 140 ) )
+		}
+		itemDef
+		{
+			rect 0 0 51.333 18.033 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 0.941 0.773 0.361 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 188 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 2.5 )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && getplayercardinfo( 12 , 3 , dvarint( "party_selectedIndex" ) ) != "" )
+			exp text ( "[" + getplayercardinfo( 12 , 3 , dvarint( "party_selectedIndex" ) ) + "]" )
+		}
+		itemDef
+		{
+			rect 0 0 18.667 18.667 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 192 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 18.9 )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && ( getplayercardinfo( 4 , 3 , dvarint( "party_selectedIndex" ) ) >= 0 ) && dvarstring( "gameMode" ) == "mp" )
+			exp material ( tablelookup( "mp/rankIconTable.csv" , 0 , getplayercardinfo( 4 , 3 , dvarint( "party_selectedIndex" ) ) , ( getplayercardinfo( 5 , 3 , dvarint( "party_selectedIndex" ) ) + 1 ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 22 18.033 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 212 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 19.167 )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && ( getplayercardinfo( 4 , 3 , dvarint( "party_selectedIndex" ) ) >= 0 ) && dvarstring( "gameMode" ) == "mp" )
+			exp text ( tablelookup( "mp/rankTable.csv" , 0 , getplayercardinfo( 4 , 3 , dvarint( "party_selectedIndex" ) ) , 14 ) )
+		}
+		itemDef
+		{
+			rect 0 0 18.667 18.667 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 192 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 18.9 )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && ( getplayercardinfo( 6 , 3 , dvarint( "party_selectedIndex" ) ) >= 0 ) && dvarstring( "gameMode" ) == "so" )
+			exp material ( tablelookup( "sp/rankTable.csv" , 0 , getplayercardinfo( 6 , 3 , dvarint( "party_selectedIndex" ) ) , 6 ) )
+		}
+		itemDef
+		{
+			rect 0 0 22 18.033 3 1
+			decoration
+			visible 1
+			style 1
+			forecolor 1 1 1 1
+			textfont 3
+			textalign 8
+			textscale 0.375
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 212 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) + 19.167 )
+			exp forecolor a ( ( 1 - ( isselectedpartymemberaway( ) * 0.5 ) ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && ( getplayercardinfo( 6 , 3 , dvarint( "party_selectedIndex" ) ) >= 0 ) && dvarstring( "gameMode" ) == "so" )
+			exp text ( tablelookup( "sp/rankTable.csv" , 0 , getplayercardinfo( 6 , 3 , dvarint( "party_selectedIndex" ) ) , 14 ) )
+		}
+		itemDef
+		{
+			rect 0 0 29.333 29.333 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 228.667 )
+			exp rect y ( ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) - 14.267 )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && getplayercardinfo( 10 , 3 , dvarint( "party_selectedIndex" ) ) )
+			exp material ( "xp" )
+		}
+		itemDef
+		{
+			rect 0 0 29.333 29.333 3 1
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			textscale 0.55
+			exp rect x ( ( ( 12 - ( 240 + 10 + 41.333 ) ) ) + 228.667 )
+			exp rect y ( select( getplayercardinfo( 10 , 3 , dvarint( "party_selectedIndex" ) ) , ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) - 1.1 , ( 32 + ( ( getFeederData( "partyList" , "selection" ) - getFeederData( "partyList" , "start" ) ) * 19.5 - 10 ) ) - 14.267 ) )
+			visible when ( ( dvarbool( "party_listFocus" ) && dvarbool( "widescreen" ) ) && ( getplayercardinfo( 0 , 3 , dvarint( "party_selectedIndex" ) ) != 0 ) && getplayercardinfo( 15 , 3 , dvarint( "party_selectedIndex" ) ) )
+			exp material ( "gxp" )
+		}
+	}
+}

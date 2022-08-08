@@ -1,0 +1,230 @@
+/*********************************************************
+***************** Dumped by aerosoul94 *******************
+*********************************************************/
+
+{
+	menuDef
+	{
+		name "remote_tank_overlay_hd"
+		rect 0 0 640 480 0 0
+		visible 1
+		forecolor 1 1 1 1
+		itemDef
+		{
+			rect -427 -240 854 480 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.65
+			background "remote_tank_overlay_mp"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.5
+			background "javelin_overlay_grain"
+			textscale 0.55
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 0.5
+			background "javelin_overlay_grain"
+			textscale 0.55
+			exp forecolor g ( getplayerdata( "ugvDamageFade" ) )
+			exp forecolor b ( getplayerdata( "ugvDamageFade" ) )
+			visible when ( getplayerdata( "ugvDamageFade" ) < 1 && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "javelin_overlay_tearing"
+			textscale 0.55
+			exp forecolor a ( ( ( cos( localclientuimilliseconds( ) ) + 1 ) * 0.5 ) * ( 1 - 0.1 ) + 0.1 )
+			visible when ( getplayerdata( "ugvDamageFade" ) < 1 && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 0 0 640 480 4 4
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "javelin_overlay_tearing"
+			textscale 0.55
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( ( ( cos( localclientuimilliseconds( ) ) + 1 ) * 0.5 ) * ( 1 - 0.1 ) + 0.1 )
+			visible when ( getplayerdata( "ugvDamageState" ) >= 7 && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect -100 0 0 0 10 10
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 14
+			textscale 0.4
+			exp text ( secondsascountdown( ( max( 0 , ( localvarint( "ui_remoteTankTimer" ) - milliseconds( ) ) / 1000 ) ) ) )
+		}
+		itemDef
+		{
+			rect -220 -60 60 26 3 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 10
+			textalign 14
+			textscale 0.3333
+			visible when ( ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) && ( !isdemoplaying( ) ) )
+			exp text ( "@MPUI_REMOTE_TANK_MISSILES" )
+		}
+		itemDef
+		{
+			rect -30 -20 60 26 2 3
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textfont 10
+			textalign 13
+			textscale 0.3333
+			visible when ( ( !isdemoplaying( ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( "@MP_EARLY_EXIT" )
+		}
+		itemDef
+		{
+			rect 230 -15 24 24 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "viper_ammo_overlay_mp"
+			textscale 0.55
+			visible when ( getplayerdata( "ugvBullets" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 170 -15 60 26 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 10
+			textscale 0.32
+			visible when ( getplayerdata( "ugvBullets" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ugvBullets" ) + ":" + getplayerdata( "ugvMaxBullets" ) )
+		}
+		itemDef
+		{
+			rect 230 -15 24 24 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "viper_ammo_overlay_mp"
+			textscale 0.55
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ugvBullets" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 170 -15 60 26 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 10
+			textscale 0.32
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ugvBullets" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ugvBullets" ) + ":" + getplayerdata( "ugvMaxBullets" ) )
+		}
+		itemDef
+		{
+			rect 180 -36 60 26 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 10
+			textscale 0.32
+			text "@AC130_RELOADING"
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ugvBullets" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 230 30 24 24 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "viper_missile_overlay_mp"
+			textscale 0.55
+			visible when ( getplayerdata( "ugvMissile" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 170 30 60 26 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 10
+			textscale 0.32
+			visible when ( getplayerdata( "ugvMissile" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ugvMissile" ) + ":1" )
+		}
+		itemDef
+		{
+			rect 230 30 24 24 2 2
+			decoration
+			visible 1
+			style 3
+			forecolor 1 1 1 1
+			background "viper_missile_overlay_mp"
+			textscale 0.55
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ugvMissile" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+		itemDef
+		{
+			rect 170 30 60 26 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 10
+			textscale 0.32
+			exp forecolor g ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor b ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ugvMissile" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+			exp text ( getplayerdata( "ugvMissile" ) + ":1" )
+		}
+		itemDef
+		{
+			rect 180 8 60 26 2 2
+			decoration
+			visible 1
+			forecolor 1 1 1 1
+			textalign 10
+			textscale 0.32
+			text "@AC130_RELOADING"
+			exp forecolor a ( 1 - ( ( sin( localclientuimilliseconds( ) / 90 ) ) * 0.65 ) )
+			visible when ( !getplayerdata( "ugvMissile" ) && ( ! ( inkillcam( ) ) ) && ( ! ( spectatingclient( ) ) ) )
+		}
+	}
+}

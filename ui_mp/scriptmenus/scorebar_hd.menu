@@ -6,9 +6,11 @@
 	menuDef
 	{
 		name "scorebar_hd"
-		rect 0 -20 640 480 8 8
+		rect 0 0 1 3 3
 		visible 1
 		forecolor 1 1 1 1
+		visible when ( ( ( ! ( ui_active( ) ) ) && ( ! ( dvarbool( "g_hardcore" ) ) ) && ( ! ( flashbanged( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_ac130_mp" ) || ( weaponname( ) == "killstreak_helicopter_minigun_mp" ) || ( weaponname( ) == "killstreak_predator_missile_mp" ) || ( ( weaponname( ) == "ac130_105mm_mp" ) || ( weaponname( ) == "ac130_40mm_mp" ) || ( weaponname( ) == "ac130_25mm_mp" ) ) || ( adsjavelin( ) ) || ( weaponname( ) == "heli_remote_mp" ) || missilecam( ) || ( weaponname( ) == "uav_remote_mp" ) || ( ( weaponname( ) == "mortar_remote_mp" ) || ( weaponname( ) == "mortar_remote_zoom_mp" ) ) || ( weaponname( ) == "killstreak_remote_tank_remote_mp" ) || ( weaponname( ) == "killstreak_remote_turret_remote_mp" ) ) ) && ( !isempjammed( ) ) && ( ! ( dvarint( "scr_gameended" ) ) ) && ( ( !isdemoplaying( ) ) || ( !isdemofreecamera( ) && !isdemofollowcamera( ) ) ) && ( ! ( ( weaponname( ) == "killstreak_remote_tank_laptop_mp" ) || ( weaponname( ) == "killstreak_remote_turret_laptop_mp" ) ) ) ) && ! ( selecting_location( ) ) && ( ! ( spectatingclient( ) || spectatingfree( ) ) ) && ( ! ( inkillcam( ) ) ) && ( ! ( milliseconds( ) - localvarint( "ui_show_killedBy" ) < 4000 || ( inkillcam( ) ) ) ) )
+		
 		itemDef
 		{
 			rect 13.3333 -30.6667 128 12 8 10
@@ -108,9 +110,10 @@
 			visible 1
 			forecolor 1 1 1 0.65
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
-			visible when ( ! ( dvarint( "ui_overtime" ) ) ) && ! ( timeleft( ) < 1 ) && ( ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) || dvarint( "ui_override_halftime" ) == 1 ) )
+			visible when ( ! ( dvarint( "ui_overtime" ) ) && ! ( timeleft( ) < 1 ) && ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) || dvarint( "ui_override_halftime" ) == 1 )
 			exp text ( "@MPUI_FIRST_HALF" )
 		}
 		itemDef
@@ -120,9 +123,10 @@
 			visible 1
 			forecolor 1 1 1 0.65
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
-			visible when ( ! ( dvarint( "ui_overtime" ) ) ) && ! ( timeleft( ) < 1 ) && ( ( ( dvarint( "ui_halftime" ) ) && ! ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) || dvarint( "ui_override_halftime" ) == 2 ) )
+			visible when ( ! ( dvarint( "ui_overtime" ) ) && ! ( timeleft( ) < 1 ) && ( dvarint( "ui_halftime" ) && !( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) || dvarint( "ui_override_halftime" ) == 2 )
 			exp text ( "@MPUI_SECOND_HALF" )
 		}
 		itemDef
@@ -132,9 +136,10 @@
 			visible 1
 			forecolor 0.85 0.4 0.4 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
-			visible when ( ( dvarint( "ui_overtime" ) ) ) && ! ( timeleft( ) < 1 ) )
+			visible when ( ( dvarint( "ui_overtime" ) ) && ! ( timeleft( ) < 1 ) )
 			exp text ( "@MP_OVERTIME" )
 		}
 		itemDef
@@ -166,6 +171,7 @@
 			visible 1
 			forecolor 1 0.55 0.55 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) != "BombExploded" && ( team( "name" ) == "TEAM_ALLIES" && dvarstring( "ui_danger_team" ) == "allies" ) || ( team( "name" ) == "TEAM_AXIS" && dvarstring( "ui_danger_team" ) == "axis" ) ) )
@@ -178,6 +184,7 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) != "BombExploded" && dvarstring( "ui_danger_team" ) == "none" ) )
@@ -190,6 +197,7 @@
 			visible 1
 			forecolor 0.63 0.86 0.6 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) != "BombExploded" && ( team( "name" ) == "TEAM_ALLIES" && dvarstring( "ui_danger_team" ) == "axis" ) || ( team( "name" ) == "TEAM_AXIS" && dvarstring( "ui_danger_team" ) == "allies" ) ) )
@@ -202,6 +210,7 @@
 			visible 1
 			forecolor 1 0.55 0.55 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( dvarstring( "ui_danger_team" ) == "contested" ) )
@@ -214,11 +223,12 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 13
 			textaligny -58
 			textscale 0.3333
-			visible when ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 60 && !dvarint( "ui_bomb_timer" ) )
-			exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) )
+			visible when ( int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) >= 60 && !dvarint( "ui_bomb_timer" ) )
+			exp text ( secondsascountdown( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) ) )
 		}
 		itemDef
 		{
@@ -227,12 +237,13 @@
 			visible 1
 			forecolor 0.85 0.5 0 1
 			textfont 10
+			textstyle 8
 			textalign 13
 			textaligny -58
 			textscale 0.3333
 			glowColor 0.75 0.55 0 1
-			visible when ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 30 && ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) < 60 && !dvarint( "ui_bomb_timer" ) )
-			exp text ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) )
+			visible when ( int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) >= 30 && int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) < 60 && !dvarint( "ui_bomb_timer" ) )
+			exp text ( secondsascountdown( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) ) )
 		}
 		itemDef
 		{
@@ -241,12 +252,13 @@
 			visible 1
 			forecolor 0.85 0.4 0.4 1
 			textfont 10
-			textalign 12
+			textstyle 8
+			textalign 13
 			textaligny -58
 			textscale 0.3333
 			glowColor 1 0.25 0 1
-			visible when ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 0 && ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) < 30 && !dvarint( "ui_bomb_timer" ) )
-			exp text ( ( secondsascountdown( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) ) + "." + ( int( int( ( ( gameendtime( ) - gettime( ) ) - ( ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) * 1000 ) ) / 100 ) % 10 ) ) ) )
+			visible when ( int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) >= 0 && int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) < 30 && !dvarint( "ui_bomb_timer" ) )
+			exp text ( secondsascountdown( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) + "." + ( ( ( ( gameendtime( ) - gettime( ) ) - ( dvarint( "ui_timelimit" ) * 60 * 0.5 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) ) / 100 ) % 10 ) )
 		}
 		itemDef
 		{
@@ -255,6 +267,7 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			glowColor 1 0.25 0 1
@@ -268,6 +281,7 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			glowColor 1 0.25 0 1
@@ -281,10 +295,11 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			glowColor 1 0.25 0 1
-			visible when ( ! ( dvarint( "ui_overtime" ) ) ) && ( dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_a" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 && dvarint( "ui_inhostmigration" ) == 0 ) )
+			visible when ( !dvarint( "ui_overtime" ) && dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_a" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 && dvarint( "ui_inhostmigration" ) == 0 )
 			exp text ( ( locstring( "@MP_BOMB_A_COLON_N_N" , ( int( ( dvarint( "ui_bombtimer_a" ) - gettime( ) ) / 1000 ) ) , ( int( int( ( dvarint( "ui_bombtimer_a" ) - gettime( ) ) / 100 ) % 10 ) ) ) ) )
 		}
 		itemDef
@@ -294,6 +309,7 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 12
 			textscale 0.3333
 			glowColor 1 0.25 0 1
@@ -307,10 +323,11 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			glowColor 1 0.25 0 1
-			visible when ( ( dvarint( "ui_overtime" ) ) ) && ( dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_a" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 && dvarint( "ui_inhostmigration" ) == 0 ) )
+			visible when ( dvarint( "ui_overtime" ) && dvarint( "ui_bomb_timer" ) > 1 && dvarint( "ui_bombtimer_a" ) >= 0 && dvarint( "ui_bomb_timer" ) != 4 && dvarint( "ui_inhostmigration" ) == 0 )
 			exp text ( ( locstring( "@MP_BOMB_N_N" , ( int( ( dvarint( "ui_bombtimer_a" ) - gettime( ) ) / 1000 ) ) , ( int( int( ( dvarint( "ui_bombtimer_a" ) - gettime( ) ) / 100 ) % 10 ) ) ) ) )
 		}
 		itemDef
@@ -320,8 +337,9 @@
 			visible 1
 			forecolor 1 0.8 0.4 0.85
 			textfont 10
+			textstyle 8
 			textscale 0.3333
-			visible when ( ( milliseconds( ) % 30000 ) > 0 && ( milliseconds( ) % 30000 ) < 4000 && ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) < 0 || ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) > 60 ) )
+			visible when ( ( milliseconds( ) % 30000 ) > 0 && ( milliseconds( ) % 30000 ) < 4000 && ( int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) < 0 || int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) > 60 ) )
 			exp text ( gametypename( ) )
 		}
 		itemDef
@@ -331,9 +349,10 @@
 			visible 1
 			forecolor 0.4 1 0.4 1
 			textfont 10
+			textstyle 8
 			textscale 0.3333
 			text "@MPUI_WINNING_CAPS"
-			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) > ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) && ( team( "name" ) ) != "TEAM_FREE" ) || ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) && ( scoreatrank( 1 ) ) != ( scoreatrank( 2 ) ) && ( team( "name" ) ) == "TEAM_FREE" ) ) && ( ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) || ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 0 && ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) <= 60 ) ) )
+			visible	when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) > ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) && ( team( "name" ) ) != "TEAM_FREE" ) || ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) && ( scoreatrank( 1 ) ) != ( scoreatrank( 2 ) ) && ( team( "name" ) ) == "TEAM_FREE" ) ) && ( ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) || int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) >= 0 && int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) <= 60 ) )
 		}
 		itemDef
 		{
@@ -342,9 +361,10 @@
 			visible 1
 			forecolor 1 0.4 0.4 1
 			textfont 10
+			textstyle 8
 			textscale 0.3333
 			text "@MPUI_LOSING_CAPS"
-			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) < ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) && ( team( "name" ) ) != "TEAM_FREE" ) || ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) && ( team( "name" ) ) == "TEAM_FREE" ) ) && ( ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) || ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 0 && ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) <= 60 ) ) )
+			visible	when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) < ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) && ( team( "name" ) ) != "TEAM_FREE" ) || ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) && ( team( "name" ) ) == "TEAM_FREE" ) ) && ( ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) || int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) >= 0 && int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) <= 60 ) )
 		}
 		itemDef
 		{
@@ -353,9 +373,10 @@
 			visible 1
 			forecolor 1 1 0.5 1
 			textfont 10
+			textstyle 8
 			textscale 0.3333
 			text "@MPUI_TIED_CAPS"
-			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) == ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) && ( team( "name" ) ) != "TEAM_FREE" ) || ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) && ( scoreatrank( 1 ) ) == ( scoreatrank( 2 ) ) && ( team( "name" ) ) == "TEAM_FREE" ) ) && ( ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) || ( ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) >= 0 && ( int( timeleft( ) - ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 * ( ( dvarint( "ui_halftime" ) ) && ( timeleft( ) + 1 > ( ( dvarint( "ui_timelimit" ) ) ) * 60 * 0.5 ) ) ) ) ) ) <= 60 ) ) )
+			visible	when ( ( team( "name" ) != "TEAM_SPECTATOR" ) && ( ( ( ( team( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( player( "score" ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) == ( ( otherteam( "score" ) * ( ! ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) + ( ( ( ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) ) * ( scoreatrank( 2 ) ) ) + ( ( ( player( "score" ) ) != ( scoreatrank( 1 ) ) ) * ( scoreatrank( 1 ) ) ) ) * ( ( team( "name" ) ) == "TEAM_FREE" ) ) ) && ( team( "name" ) ) != "TEAM_FREE" ) || ( ( player( "score" ) ) == ( scoreatrank( 1 ) ) && ( scoreatrank( 1 ) ) == ( scoreatrank( 2 ) ) && ( team( "name" ) ) == "TEAM_FREE" ) ) && ( ( ( milliseconds( ) % 30000 ) > 4000 && ( milliseconds( ) % 30000 ) < 30000 ) || int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) >= 0 && int( timeleft( ) - dvarint( "ui_timelimit" ) * 0.5 * 60 * ( dvarint( "ui_halftime" ) && ( timeleft( ) + 1 > dvarint( "ui_timelimit" ) * 60 * 0.5 ) ) ) <= 60 ) )
 		}
 		itemDef
 		{
@@ -375,6 +396,7 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 12
 			textscale 0.3333
 			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
@@ -387,6 +409,7 @@
 			visible 1
 			forecolor 1 1 1 1
 			textfont 10
+			textstyle 8
 			textalign 4
 			textscale 0.3333
 			visible when ( ( team( "name" ) != "TEAM_SPECTATOR" ) )
